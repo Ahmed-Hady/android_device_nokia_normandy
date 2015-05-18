@@ -1,2 +1,0 @@
-# cust filesystem
-/cust(/.*)?                      u:object_r:cust_file:s0
