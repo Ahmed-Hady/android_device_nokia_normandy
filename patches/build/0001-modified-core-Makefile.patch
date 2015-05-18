@@ -1,0 +1,31 @@
+From e46a6530b5af706784233bfb8ed54b992fc40bd3 Mon Sep 17 00:00:00 2001
+From: Ahmed Hady <ahemdhady6@gmailcom>
+Date: Mon, 18 May 2015 05:25:03 +0200
+Subject: [PATCH] 	modified:   core/Makefile
+
+Change-Id: I98e41d87da9853cdda6caa732c8c86ac23b12789
+---
+ core/Makefile            | 2 +-
+ tools/device/mkvendor.sh | 0
+ 2 files changed, 1 insertion(+), 1 deletion(-)
+ mode change 100644 => 100755 tools/device/mkvendor.sh
+
+diff --git a/core/Makefile b/core/Makefile
+index 2585ded..bf43b25 100644
+--- a/core/Makefile
++++ b/core/Makefile
+@@ -1641,7 +1641,7 @@ $(INTERNAL_OTA_PACKAGE_TARGET): $(BUILT_TARGET_FILES_PACKAGE) $(DISTTOOLS)
+ 	$(hide) MKBOOTIMG=$(MKBOOTIMG) \
+ 	   CUSTOM_BOOTING_MK=$(BOARD_CUSTOM_BOOTIMG_MK) \
+ 	   $(OTA_FROM_TARGET_SCRIPT) -v \
+-	   $(if $(SLIM_BUILD), --block) \
++	   $(if $(SLIM_BUILD)) \
+ 	   -p $(HOST_OUT) \
+ 	   -k $(KEY_CERT_PAIR) \
+ 	   $(if $(OEM_OTA_CONFIG), -o $(OEM_OTA_CONFIG)) \
+diff --git a/tools/device/mkvendor.sh b/tools/device/mkvendor.sh
+old mode 100644
+new mode 100755
+-- 
+1.9.1
+

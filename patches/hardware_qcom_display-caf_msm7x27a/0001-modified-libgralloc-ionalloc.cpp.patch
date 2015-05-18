@@ -1,0 +1,25 @@
+From 3d368d3df7587b4c87c9a91f0d5e444f3e2b0d22 Mon Sep 17 00:00:00 2001
+From: Ahmed Hady <ahemdhady6@gmail.com>
+Date: Wed, 13 May 2015 17:01:40 +0200
+Subject: [PATCH] 	modified:   libgralloc/ionalloc.cpp
+
+---
+ libgralloc/ionalloc.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/libgralloc/ionalloc.cpp b/libgralloc/ionalloc.cpp
+index 923a90e..6b26a25 100644
+--- a/libgralloc/ionalloc.cpp
++++ b/libgralloc/ionalloc.cpp
+@@ -80,7 +80,7 @@ int IonAlloc::alloc_buffer(alloc_data& data)
+ #ifdef OLD_ION_API
+     ionAllocData.flags = data.flags;
+ #else
+-    ionAllocData.heap_mask = data.flags & ~ION_SECURE;
++    ionAllocData.heap_id_mask = data.flags & ~ION_SECURE;
+     ionAllocData.flags = data.uncached ? 0 : ION_FLAG_CACHED;
+     // ToDo: replace usage of alloc data structure with
+     //  ionallocdata structure.
+-- 
+2.1.4
+

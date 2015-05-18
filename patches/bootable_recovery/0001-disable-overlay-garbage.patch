@@ -1,0 +1,32 @@
+From d68f39c20f890f3a1e5f1d13da8ca2f9f4b6b9e5 Mon Sep 17 00:00:00 2001
+From: Ahemd Hady <ahmedhady6@gmail.com>
+Date: Tue, 12 May 2015 10:09:52 +0200
+Subject: [PATCH 2/2] 	modified:   minui/Android.mk
+
+Change-Id: Id940dfe24385b4c971008971b725d1e9bb4a7d9a
+---
+ minui/Android.mk | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/minui/Android.mk b/minui/Android.mk
+index df4aac1..cd9270d 100644
+--- a/minui/Android.mk
++++ b/minui/Android.mk
+@@ -10,6 +10,14 @@ LOCAL_C_INCLUDES +=\
+ 
+ LOCAL_WHOLE_STATIC_LIBRARIES += libadf
+ 
++ifeq ($(call is-vendor-board-platform,QCOM),true)
++   LOCAL_C_INCLUDES += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include
++endif
++ifeq ($(TARGET_USES_QCOM_BSP), true)
++    LOCAL_CFLAGS += -DMSM_BSP
++endif
++
++
+ LOCAL_MODULE := libminui
+ 
+ # This used to compare against values in double-quotes (which are just
+-- 
+2.1.4
+
