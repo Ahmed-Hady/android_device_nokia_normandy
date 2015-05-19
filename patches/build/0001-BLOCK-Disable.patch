@@ -1,0 +1,57 @@
+From c1fb866eb15bbc7c82e70e6549304a3ac87c5fce Mon Sep 17 00:00:00 2001
+From: Ahmed Hady <ahmedhady6@gmail.com>
+Date: Tue, 19 May 2015 04:15:10 +0200
+Subject: [PATCH] 	modified:   core/Makefile 	modified:  
+ core/qcom_target.mk 	modified:   tools/device/mkvendor.sh
+
+Change-Id: I36be394b13396059edf5bbd813858967eff6aa19
+---
+ core/Makefile            | 6 +++++-
+ core/qcom_target.mk      | 2 +-
+ tools/device/mkvendor.sh | 0
+ 3 files changed, 6 insertions(+), 2 deletions(-)
+ mode change 100755 => 100644 tools/device/mkvendor.sh
+
+diff --git a/core/Makefile b/core/Makefile
+index bf43b25..742e4c9 100644
+--- a/core/Makefile
++++ b/core/Makefile
+@@ -1634,6 +1634,10 @@ else
+     $(INTERNAL_OTA_PACKAGE_TARGET): override_device := $(TARGET_OTA_ASSERT_DEVICE)
+ endif
+ 
++ifneq ($(BLOCK_BASED_OTA),false)
++    $(INTERNAL_OTA_PACKAGE_TARGET): block_based := --block
++endif
++
+ $(INTERNAL_OTA_PACKAGE_TARGET): $(BUILT_TARGET_FILES_PACKAGE) $(DISTTOOLS)
+ 	@echo "$(OTA_FROM_TARGET_SCRIPT)" > $(PRODUCT_OUT)/ota_script_path
+ 	@echo "$(override_device)" > $(PRODUCT_OUT)/ota_override_device
+@@ -1641,7 +1645,7 @@ $(INTERNAL_OTA_PACKAGE_TARGET): $(BUILT_TARGET_FILES_PACKAGE) $(DISTTOOLS)
+ 	$(hide) MKBOOTIMG=$(MKBOOTIMG) \
+ 	   CUSTOM_BOOTING_MK=$(BOARD_CUSTOM_BOOTIMG_MK) \
+ 	   $(OTA_FROM_TARGET_SCRIPT) -v \
+-	   $(if $(SLIM_BUILD)) \
++	   $(block_based) \
+ 	   -p $(HOST_OUT) \
+ 	   -k $(KEY_CERT_PAIR) \
+ 	   $(if $(OEM_OTA_CONFIG), -o $(OEM_OTA_CONFIG)) \
+diff --git a/core/qcom_target.mk b/core/qcom_target.mk
+index 3153885..fcefe00 100644
+--- a/core/qcom_target.mk
++++ b/core/qcom_target.mk
+@@ -17,7 +17,7 @@ ifeq ($(BOARD_USES_QCOM_HARDWARE),true)
+     TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
+ 
+     # Enable DirectTrack for legacy targets
+-    ifneq ($(filter msm7x27a msm7x30 msm8660 msm8960,$(TARGET_BOARD_PLATFORM)),)
++    ifneq ($(filter msm7x30 msm8660 msm8960,$(TARGET_BOARD_PLATFORM)),)
+         ifeq ($(BOARD_USES_LEGACY_ALSA_AUDIO),true)
+             qcom_flags += -DQCOM_DIRECTTRACK
+         endif
+diff --git a/tools/device/mkvendor.sh b/tools/device/mkvendor.sh
+old mode 100755
+new mode 100644
+-- 
+1.9.1
+
